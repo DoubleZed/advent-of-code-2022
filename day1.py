@@ -1,5 +1,4 @@
 import os
-import pandas as pd
 ### Part one ###
 inputPath = os.path.join(os.getcwd(),"input","input_day1.txt")
 

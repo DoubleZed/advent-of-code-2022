@@ -12,14 +12,8 @@ def stringReplace(inputArray):
     return newArray3
 
 def scoreBasedOnPick(input):
-    score = 0
-    if input == "A":
-        score += 1
-    elif input == "B":
-        score += 2
-    else:
-        score += 3
-    return score
+    answers = "ABC"
+    return answers.rfind(input)+1
 
 def scoreCountPart1(array):
     gamePoints = 0

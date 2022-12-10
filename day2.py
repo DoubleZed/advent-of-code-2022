@@ -5,37 +5,39 @@ inputPath = os.path.join(os.getcwd(),"input","input_day2.txt")
 
 array = [line.rstrip() for line in open(inputPath,"r")]
 
-gamePoints = 0
-for x in array:
-    if fnmatch.fnmatch(x, 'A*'):
-        if fnmatch.fnmatch(x, '*X'):
+def stringReplace(inputArray):
+    newArray = [x.replace ('X', 'A') for x in inputArray]
+    newArray2 = [x.replace ('Y', 'B') for x in newArray]
+    newArray3 = [x.replace ('Z', 'C') for x in newArray2]
+    return newArray3
+
+def scoreBasedOnPick(input):
+    score = 0
+    if input == "A":
+        score += 1
+    elif input == "B":
+        score += 2
+    else:
+        score += 3
+    return score
+
+def scoreCountPart1(array):
+    gamePoints = 0
+    for x in array:
+        gamePoints += scoreBasedOnPick(x[2])
+        if x[0] == x[2]:
             gamePoints += 3
-            gamePoints += 1
-        elif fnmatch.fnmatch(x, '*Y'):
-            gamePoints += 6
-            gamePoints += 2
-        elif fnmatch.fnmatch(x, '*Z'):
-            gamePoints += 0
-            gamePoints += 3
-    elif fnmatch.fnmatch(x, 'B*'):
-        if fnmatch.fnmatch(x, '*X'):
-            gamePoints += 0
-            gamePoints += 1
-        elif fnmatch.fnmatch(x, '*Y'):
-            gamePoints += 3
-            gamePoints += 2
-        elif fnmatch.fnmatch(x, '*Z'):
-            gamePoints += 6
-            gamePoints += 3
-    elif fnmatch.fnmatch(x, 'C*'):
-        if fnmatch.fnmatch(x, '*X'):
-            gamePoints += 6
-            gamePoints += 1
-        elif fnmatch.fnmatch(x, '*Y'):
-            gamePoints += 0
-            gamePoints += 2
-        elif fnmatch.fnmatch(x, '*Z'):
-            gamePoints += 3
-            gamePoints += 3
- 
-print ("Total points:", gamePoints)
+        else:
+            if x[0] == "A":
+                if x[2] == "B":
+                    gamePoints += 6   
+            elif x[0] == "B":
+                if x[2] == "C":
+                    gamePoints += 6
+            elif x[0] == "C":
+                if x[2] == "A":
+                    gamePoints += 6          
+    return gamePoints
+            
+
+print(scoreCountPart1(stringReplace(array)))

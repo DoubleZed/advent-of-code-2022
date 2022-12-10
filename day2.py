@@ -1,5 +1,4 @@
 import os
-import fnmatch
 ### Part one ###
 inputPath = os.path.join(os.getcwd(),"input","input_day2.txt")
 
@@ -15,7 +14,7 @@ def scoreBasedOnPick(input):
     answers = "ABC"
     return answers.rfind(input)+1
 
-def scoreCountPart1(array):
+def scoreCount(array):
     gamePoints = 0
     for x in array:
         gamePoints += scoreBasedOnPick(x[2])
@@ -33,5 +32,29 @@ def scoreCountPart1(array):
                     gamePoints += 6          
     return gamePoints
             
+print(scoreCount(stringReplace(array)))
 
-print(scoreCountPart1(stringReplace(array)))
+### Part two ###
+
+def changeScore(array):
+    changedArray = []
+    for x in array:
+        if x[2] == "X": #I need to lose
+            if x[0] == "A":
+                changedArray.append(x[0]+" C")
+            elif x[0] == "B":
+                changedArray.append(x[0]+" A")
+            elif x[0] == "C":
+                changedArray.append(x[0]+" B")
+        elif x[2] == "Y": #I need to draw            
+            changedArray.append(x[0]+" "+x[0])
+        elif x[2] == "Z": #I need to win            
+            if x[0] == "A":
+                changedArray.append(x[0]+" B")
+            elif x[0] == "B":
+                changedArray.append(x[0]+" C")
+            elif x[0] == "C":
+                changedArray.append(x[0]+" A")
+    return changedArray
+
+print(scoreCount(changeScore(array)))
